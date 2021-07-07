@@ -12,10 +12,15 @@ v 0 a --> represents vertex id 0 and vertex label a
 v 1 b --> represents vertex id 1 and vertex label b
 
 v 2 b --> represents vertex id 2 and vertex label b
+
 v 3 c --> represents vertex id 3 and vertex label c
+
 e 0 1 x --> represents edge between vertices 0 and 1 with label x
+
 e 1 2 y --> represents edge between vertices 1 and 2 with label y
+
 e 2 3 x --> represents edge between vertices 2 and 3 with label x
+
 e 3 0 z --> represents edge between vertices 3 and 0 with label z
 
 If your dataset is in SMILES Format which represent chemical compounds, Please convert it into graph transactions format shown above using the following steps:
