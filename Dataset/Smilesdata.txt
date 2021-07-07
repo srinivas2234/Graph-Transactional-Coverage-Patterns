@@ -1,0 +1,5 @@
+O=C(Cn1nc(-c2ccccc2)ccc1=O)NNC(=O)c1cn(-c2ccccc2)nc1-c1ccccc1,-9.98
+C=CCOc1cccc([C@H]2C(C(=O)c3ccc(Br)cc3)=C([O-])C(=O)N2c2cc(C)on2)c1,-9.90
+O=[N+]([O-])c1ccc([C@@H]2Nc3ccc(S(=O)(=O)Nc4ccccc4)cc3[C@@H]3C=CC[C@H]32)cc1,-9.83
+NC(=O)c1ccc(NC(=O)COC(=O)c2c3c(nc4ccccc24)/C(=C/c2ccc(O)cc2)CC3)cc1,-9.81
+Cc1cc(C)c(NC(=O)CSc2nnc(CCCOc3ccc(Cl)cc3Cl)o2)c(C)c1,-9.81
