@@ -4,9 +4,13 @@ This file provides details about dataset and steps to execute graph transactiona
 Dataset Format:
 SMILES Format: C1CCCC1C
 Graph Transaction Format: A Graph transaction is represented as follows:
+
 t # 0 --> represents graph transaction id 0
+
 v 0 a --> represents vertex id 0 and vertex label a
+
 v 1 b --> represents vertex id 1 and vertex label b
+
 v 2 b --> represents vertex id 2 and vertex label b
 v 3 c --> represents vertex id 3 and vertex label c
 e 0 1 x --> represents edge between vertices 0 and 1 with label x
