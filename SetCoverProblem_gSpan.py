@@ -20,15 +20,14 @@ class cmine():
         self.maxOR = maxOR
         self.inpfile = inpfile
         self.outfile = outfile
-        self.nofs = self.getlines(inpfile)
-        #self.fout = open(outfile,'w')
+        self.nofs = self.getlines(inpfile)        
         self.noofCTP=0
         self.noof_Candi_CTP=0
         self.NOk = []
         self.Candi_CTP=[]
         self.final_CTPs=[]
         self.nofs,self.bitpattern = self.dbscanSCP(inpfile)
-        #[self.items, self.bitpattern,self.TidKey_Dict] = self.dbscan(inpfile)
+        
         
         "Checking feature coverage of a graph greaterthan minFC or not"
         print("No.of 1 size candidates:",len(self.bitpattern))        
@@ -42,10 +41,8 @@ class cmine():
                 temp=[1.0*value.count()/self.nofs,key]
                 self.NOk.append(temp)
                 
-        print("NO.of 1-size candidate patterns, 1-size GCP=",self.noof_Candi_CTP,len(tot_CPs))
-        #self.NOk.sort(reverse=True)
-        sorteditems = sorted(self.NOk, key = lambda a: (-a[0],a[1]))
-        #print(len(sorteditems))        
+        print("NO.of 1-size candidate patterns, 1-size GCP=",self.noof_Candi_CTP,len(tot_CPs))        
+        sorteditems = sorted(self.NOk, key = lambda a: (-a[0],a[1]))            
         self.NOk=[]
         for i in sorteditems:
             self.NOk.append([i[1]])
@@ -55,15 +52,15 @@ class cmine():
         print("1-size nonOverlap transactions",len(self.NOk))
         freqItemcnt=[]
         for key, value in self.bitpattern.items():
-            #print(key,value)
+           
             freqItemcnt.append(value.count())
-        #for ii in freqItemcnt:
-         #   print(ii)    
+        
         one_size_coverage=[]       
         
       
         
     def get_overlapratio_cs(self, new_tp):  
+        #Compute overlap and coverage support for each pattern
         cov_set=self.nofs*bitarray('0')
         last_tra_cov=self.nofs*bitarray('0')
         for tid in new_tp[:-1]:
@@ -79,6 +76,7 @@ class cmine():
 
 
     def expand(self,pathStr,datasetname):
+        #Perrform the candidate patterns using self-join opreation
         cnt = 0
         cnt1 = 0
         length = 1;
@@ -88,7 +86,7 @@ class cmine():
             l_size_Candi_pat=0
             temp_NOk = self.NOk
             self.NOk = []
-            #print(temp_NOk)
+           
             for i in range(len(temp_NOk)):
                 for j in range(i+1, len(temp_NOk)):
                     cnt += 1
@@ -113,22 +111,23 @@ class cmine():
             length += 1
             print(length, "length Candi patterns and GCP=",l_size_Candi_pat,l_size_GCP)
             print("pattern length=",length,len(self.NOk))
-#        self.fout.close()
+
         return self.noof_Candi_CTP,self.noofCTP
     
    
     def getlines(self,filename):
+        #Gent the size of the dataset
         with open(filename,"r") as f:
             return sum(1 for _ in f)
             
     def dbscanSCP(self,db):
-        # x=[]  
+        # Read the data and convert the inverted data based using dictionary
         noofbits = 0
         Tran_feat_Dict={}
         fidlist=[]
         g= open(db, 'r')
         for row in g:
-            #if row[0]=='x':
+            
             row = row.rstrip('\n')
             r = row.split(' ')
             for fid in r:
@@ -141,7 +140,7 @@ class cmine():
         fid=0
         count=0
         for row in f:
-            #if row[0]=='x':
+           
             row = row.rstrip('\n')
             r = row.split(' ')
             bit_tra=self.nofs*bitarray('0')
@@ -154,7 +153,7 @@ class cmine():
         return self.nofs,Tran_feat_Dict
               
               
-
+# Input arguments 
 start_time = time.time()
 minRF = float(sys.argv[1])
 minCS = float(sys.argv[2])
@@ -164,12 +163,15 @@ writePatterns = sys.argv[5]
 pathStr='./Dataset/'
 inpfile = pathStr+datasetname+".txt"
 outfile = pathStr+str(datasetname)+"SetCover_Results.txt"
+
+#Call the Cmine coject functions
 obj=cmine(minRF, minCS, maxOR, inpfile, outfile,pathStr,datasetname)
 candidate_patterns,CTPs = obj.expand(pathStr,datasetname)
 CTP_time = time.time()
 print(str(datasetname)+", TC="+str(minRF)+", TPC="+str(minCS)+",overlap ratio"+str(maxOR)+", Exex Time="+str(CTP_time-start_time)+", No.of Candidate Patterns="+str(candidate_patterns)+",No.of GTCP="+str(len(tot_CPs)))
 outStr=str(datasetname)+", TC="+str(minRF)+", TPC="+str(minCS)+",overlap ratio"+str(maxOR)+", Exex Time="+str(CTP_time-start_time)+", No.of Candidate Patterns="+str(candidate_patterns)+",No.of GTCP="+str(len(tot_CPs))
-#outStr=str(datasetname)+","+str(minRF)+","+str(minCS)+","+str(maxOR)+","+str(len(tot_CPs))+","+str(candidate_patterns)+","+str(CTP_time-start_time)+"\n"
+
+#Print the results to the outStr file
 with open(str(pathStr)+"/"+str(datasetname)+"_Results.txt", 'a', newline = '') as q:
     q.write(str(outStr)+"\n")    
     q.close()      
